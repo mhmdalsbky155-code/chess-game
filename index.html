@@ -9,9 +9,12 @@
     <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.2/chess.js"></script>
     <style>
-        body { background-color: #222; color: white; display: flex; flex-direction: column; align-items: center; font-family: sans-serif; padding-top: 20px; }
-        #myBoard { width: 350px; margin: 20px auto; }
-        button { padding: 10px 20px; font-size: 16px; background: #c0392b; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        body { background-color: #222; color: white; display: flex; flex-direction: column; align-items: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding-top: 20px; }
+        h1 { margin-bottom: 10px; }
+        #myBoard { width: 350px; margin: 10px auto; }
+        #status { font-size: 1.2rem; margin-bottom: 15px; color: #f1c40f; }
+        button { padding: 12px 24px; font-size: 16px; background: #c0392b; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        button:active { transform: scale(0.98); }
     </style>
 </head>
 <body>
@@ -36,7 +39,6 @@
             var move = game.move({ from: source, to: target, promotion: 'q' })
             if (move === null) return 'snapback'
             updateStatus()
-            // رد عشوائي بسيط من الكمبيوتر (مؤقتاً)
             window.setTimeout(makeRandomMove, 250)
         }
 
@@ -65,7 +67,15 @@
             updateStatus();
         }
 
-        var config = { draggable: true, position: 'start', onDragStart: onDragStart, onDrop: onDrop, onSnapEnd: onSnapEnd }
+        var config = { 
+            draggable: true, 
+            position: 'start', 
+            onDragStart: onDragStart, 
+            onDrop: onDrop, 
+            onSnapEnd: onSnapEnd,
+            // هذا السطر هو الذي سيصلح الصور
+            pieceTheme: 'https://chessboardjs.com/img/chesspieces/wikipedia/{piece}.png'
+        }
         board = Chessboard('myBoard', config)
     </script>
 </body>
