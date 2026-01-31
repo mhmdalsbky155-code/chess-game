@@ -24,21 +24,24 @@
             justify-content: center;
             min-height: 100vh;
             margin: 0;
+            padding: 10px;
         }
 
         h1 {
             text-shadow: 0px 0px 10px rgba(255, 215, 0, 0.5);
             color: #f1c40f;
-            margin-bottom: 10px;
+            margin: 0 0 10px 0;
+            font-size: 1.8rem;
         }
 
         /* 2. تصميم الرقعة الواقعي (تأثير الخشب والظلال) */
         #myBoard {
-            width: 350px;
-            margin: 20px auto;
-            border: 15px solid #4e342e; /* إطار خشبي */
-            border-radius: 5px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8); /* ظل كبير للرقعة */
+            width: 100%;
+            max-width: 400px;
+            margin: 10px auto;
+            border: 12px solid #4e342e; /* إطار خشبي */
+            border-radius: 4px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8); /* ظل كبير للرقعة */
         }
 
         /* تلوين المربعات بلون خشب واقعي */
@@ -53,30 +56,32 @@
 
         /* 3. تأثيرات القطع (ظل يعطي إيحاء 3D) */
         .square-55d63 img {
-            filter: drop-shadow(3px 5px 3px rgba(0, 0, 0, 0.6)); /* ظل للقطعة */
-            transition: transform 0.2s; /* حركة ناعمة */
+            filter: drop-shadow(2px 4px 2px rgba(0, 0, 0, 0.5)); /* ظل للقطعة */
+            transition: transform 0.2s;
         }
         
         /* تأثير عند لمس القطعة */
         .square-55d63 img:hover {
             transform: scale(1.1);
-            filter: drop-shadow(5px 10px 5px rgba(0, 0, 0, 0.8));
+            filter: drop-shadow(4px 8px 4px rgba(0, 0, 0, 0.7));
+            cursor: grab;
         }
 
-        /* 4. تصميم لوحة المعلومات والأزرار */
+        /* 4. لوحة المعلومات والزرار */
         #status {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            padding: 8px 20px;
             border-radius: 20px;
-            font-size: 1.1rem;
+            font-size: 1rem;
             margin-bottom: 15px;
-            border: 1px solid #555;
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
         button {
             background: linear-gradient(45deg, #c0392b, #8e44ad);
             color: white;
-            padding: 12px 30px;
+            padding: 12px 40px;
             border: none;
             border-radius: 50px;
             font-size: 16px;
@@ -85,19 +90,11 @@
             cursor: pointer;
             transition: 0.3s;
             font-family: 'Cairo', sans-serif;
+            margin-top: 10px;
         }
 
         button:active {
             transform: scale(0.95);
-        }
-
-        /* تحسين الإضاءة على الرقعة (لمعة خفيفة) */
-        #myBoard::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0) 100%);
-            pointer-events: none;
         }
     </style>
 </head>
@@ -106,7 +103,7 @@
     <h1>♟️ شطرنج المحترفين</h1>
     <div id="status">اللون الأبيض يبدأ..</div>
     <div id="myBoard"></div>
-    <button onclick="resetGame()">بدء لعبة جديدة</button>
+    <button onclick="resetGame()">لعبة جديدة</button>
 
     <script>
         var board = null
@@ -124,10 +121,6 @@
             var move = game.move({ from: source, to: target, promotion: 'q' })
             if (move === null) return 'snapback'
             
-            // صوت تحريك بسيط (اختياري)
-            // var audio = new Audio('https://images.chesscomfiles.com/chess-themes/sounds/_common/move-self.mp3');
-            // audio.play().catch(e => console.log(e));
-
             updateStatus()
             window.setTimeout(makeRandomMove, 250)
         }
@@ -162,17 +155,19 @@
             updateStatus();
         }
 
+        // إعدادات اللعبة + إصلاح الصور
         var config = { 
             draggable: true, 
             position: 'start', 
             onDragStart: onDragStart, 
             onDrop: onDrop, 
             onSnapEnd: onSnapEnd,
+            // السطر ده هو اللي بيجيب صور القطع من النت مباشرة
             pieceTheme: 'https://chessboardjs.com/img/chesspieces/wikipedia/{piece}.png'
         }
         board = Chessboard('myBoard', config)
         
-        // تعديل حجم الرقعة للموبايل
+        // ضبط حجم الرقعة عشان تناسب شاشة الموبايل
         $(window).resize(function() {
             board.resize();
         });
