@@ -21,7 +21,7 @@
         #start-screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: #050505;
+            background: #000;
             z-index: 9999;
             display: flex;
             flex-direction: column;
@@ -57,41 +57,48 @@
             margin-bottom: 10px;
             margin-top: -30px;
         }
+        
+        /* تعديلات العداد ليصبح HDR ومضيء */
         .counter {
-            font-size: 1.2rem;
-            color: #e0e0e0;
-            text-shadow: 0 0 10px rgba(255,255,255,0.3);
-            margin-bottom: 60px;
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 
+                0 0 10px #ffffff,
+                0 0 20px #ff4d4d,
+                0 0 30px #ff0000,
+                0 0 40px #cc0000,
+                0 0 50px #990000;
+            margin-bottom: 40px;
             direction: ltr;
+            letter-spacing: 2px;
+            background: rgba(20, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 50, 50, 0.3);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3) inset, 0 0 20px rgba(255, 0, 0, 0.4);
         }
 
         .heart-container {
             position: relative;
-            width: 250px;
-            height: 250px;
+            width: 350px;
+            height: 350px;
             margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         
-        .heart-img {
+        .heart-video {
             width: 100%;
             height: 100%;
-            object-fit: contain;
-            filter: drop-shadow(0 0 25px rgba(255, 0, 0, 0.5)) contrast(1.3) saturate(1.2) brightness(0.9);
-            animation: beat 1s infinite;
-            transform-origin: center;
-        }
-
-        @keyframes beat {
-            0% { transform: scale(1); }
-            15% { transform: scale(1.08); filter: drop-shadow(0 0 35px rgba(255, 0, 0, 0.8)) contrast(1.5) saturate(1.4); }
-            30% { transform: scale(1); }
-            45% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+            object-fit: cover;
+            pointer-events: none;
         }
 
         .roro-word {
             position: absolute;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             color: #ff4d4d;
             font-weight: bold;
             text-shadow: 0 0 10px #fff, 0 0 20px #ff0000;
@@ -123,11 +130,10 @@
         <div class="counter" id="timer">Loading...</div>
         
         <div class="heart-container" id="heart-box">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Heart_normal.svg/1024px-Heart_normal.svg.png" class="heart-img" alt="Real Heart">
+            <video src="heart.mp4" autoplay loop muted playsinline class="heart-video"></video>
         </div>
     </div>
 
-    <!-- شلنا خاصية loop لأننا هنتحكم في التكرار بالكود -->
     <audio id="bg-audio">
         <source src="song.mp3" type="audio/mpeg">
     </audio>
@@ -137,13 +143,10 @@
         const content = document.getElementById('content');
         const audio = document.getElementById('bg-audio');
 
-        // تحديد وقت البداية والنهاية بالثواني
-        const startTime = 120; // الدقيقة 2:00
-        const endTime = 236;   // الدقيقة 3:56
+        const startTime = 120;
+        const endTime = 236;
 
-        // 1. تشغيل الموقع والصوت عند الضغط
         startScreen.addEventListener('click', () => {
-            // ضبط وقت البداية قبل التشغيل
             audio.currentTime = startTime; 
             
             audio.play().then(() => {
@@ -159,14 +162,12 @@
             });
         });
 
-        // 2. مراقبة وقت الأغنية لعمل تكرار للمقطع المحدد فقط
         audio.addEventListener('timeupdate', () => {
             if (audio.currentTime >= endTime) {
                 audio.currentTime = startTime;
             }
         });
 
-        // 3. عداد الوقت (من 8/1/2025)
         const startDate = new Date("2025-01-08T00:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
@@ -184,7 +185,6 @@
             document.getElementById("timer").innerHTML = text;
         }, 1000);
 
-        // 4. خروج كلمة "رورو"
         function startHeartbeatWords() {
             setInterval(() => {
                 const heartBox = document.getElementById('heart-box');
@@ -193,18 +193,18 @@
                 word.innerText = 'رورو';
                 
                 const angle = Math.random() * Math.PI * 2;
-                const distance = 100 + Math.random() * 60;
+                const distance = 120 + Math.random() * 60;
                 const tx = Math.cos(angle) * distance + 'px';
                 const ty = Math.sin(angle) * distance + 'px';
                 
                 word.style.setProperty('--tx', tx);
                 word.style.setProperty('--ty', ty);
-                word.style.left = '40%';
-                word.style.top = '40%';
+                word.style.left = '45%';
+                word.style.top = '45%';
                 
                 heartBox.appendChild(word);
                 setTimeout(() => { word.remove(); }, 1000);
-            }, 1000);
+            }, 900);
         }
     </script>
 </body>
