@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Forever means forever</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@400;600&family=Tajawal:wght@700;900&display=swap" rel="stylesheet">
+    <!-- استدعاء خطوط احترافية من جوجل -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@400;600&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
@@ -128,29 +129,25 @@
             filter: contrast(1.2) brightness(1.1) drop-shadow(0 0 30px rgba(255,0,0,0.4));
         }
 
+        /* تنسيق الكلمات لتكون رقيقة ومندمجة مع لون القلب */
         .roro-word {
             position: absolute;
             font-family: 'Tajawal', sans-serif;
-            font-size: 2.8rem;
-            color: #ffffff;
-            font-weight: 900;
-            text-shadow: 
-                0 0 5px #fff,
-                0 0 10px #ff0055,
-                0 0 20px #ff0055,
-                0 0 40px #ff0055,
-                0 0 80px #ff0000;
+            font-size: 1.6rem; /* حجم أصغر ورقيق */
+            color: #ff3344; /* نفس درجة الأحمر الفاتح في القلب */
+            font-weight: 400; /* خط رفيع وغير مزعج */
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.5); /* توهج خفيف جداً للدمج */
             pointer-events: none;
             opacity: 0;
             z-index: 10;
-            animation: floatUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            /* حركة أبطأ وأكثر نعومة */
+            animation: floatSoft 1.8s ease-out forwards;
         }
 
-        @keyframes floatUp {
-            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
-            20% { opacity: 1; transform: translate(calc(-50% + var(--tx) * 0.2), calc(-50% + var(--ty) * 0.2)) scale(1.2); }
-            80% { opacity: 0.8; }
-            100% { opacity: 0; transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1.5); }
+        @keyframes floatSoft {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+            30% { opacity: 0.7; transform: translate(calc(-50% + var(--tx) * 0.3), calc(-50% + var(--ty) * 0.3)) scale(1); }
+            100% { opacity: 0; transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0.9); }
         }
 
         @keyframes pulse {
@@ -184,7 +181,7 @@
                 height: 300px;
             }
             .roro-word {
-                font-size: 2rem;
+                font-size: 1.3rem; /* تصغير إضافي للموبايل لتظل رقيقة */
             }
         }
 
@@ -241,20 +238,19 @@
         const startTime = 120;
         const endTime = 236;
 
-        // دالة تفعيل الشاشة الكاملة
         function openFullscreen() {
             const elem = document.documentElement;
             if (elem.requestFullscreen) {
                 elem.requestFullscreen();
-            } else if (elem.webkitRequestFullscreen) { /* Safari */
+            } else if (elem.webkitRequestFullscreen) { 
                 elem.webkitRequestFullscreen();
-            } else if (elem.msRequestFullscreen) { /* IE11 */
+            } else if (elem.msRequestFullscreen) { 
                 elem.msRequestFullscreen();
             }
         }
 
         startScreen.addEventListener('click', () => {
-            openFullscreen(); // تفعيل الشاشة الكاملة فور الضغط
+            openFullscreen(); 
             
             audio.currentTime = startTime; 
             audio.play().then(() => {
@@ -303,7 +299,7 @@
                 word.innerText = words[Math.floor(Math.random() * words.length)];
                 
                 const angle = Math.random() * Math.PI * 2;
-                const distance = (window.innerWidth < 600 ? 90 : 140) + Math.random() * 50;
+                const distance = (window.innerWidth < 600 ? 70 : 110) + Math.random() * 40;
                 const tx = Math.cos(angle) * distance + 'px';
                 const ty = Math.sin(angle) * distance + 'px';
                 
@@ -314,7 +310,7 @@
                 word.style.top = '50%';
                 
                 heartBox.appendChild(word);
-                setTimeout(() => { word.remove(); }, 1200);
+                setTimeout(() => { word.remove(); }, 1800); // إبقاء العنصر مدة أطول لتناسب الحركة البطيئة
             }, 900);
         }
     </script>
