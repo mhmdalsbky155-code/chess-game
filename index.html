@@ -4,18 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forever means forever</title>
+    <!-- استدعاء خطوط احترافية من جوجل -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@400;600&family=Tajawal:wght@700;900&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
             overflow: hidden;
-            background: #000;
+            background: #050000;
             color: #fff;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Montserrat', sans-serif;
         }
 
         #start-screen {
@@ -28,12 +30,14 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: opacity 0.5s;
+            transition: opacity 0.8s ease;
         }
         #start-screen h1 {
-            font-size: 2rem;
-            color: #ff3333;
-            animation: pulse 1s infinite alternate;
+            font-size: 2.5rem;
+            font-family: 'Tajawal', sans-serif;
+            color: #ff3344;
+            text-shadow: 0 0 20px rgba(255, 51, 68, 0.5);
+            animation: pulse 1.5s infinite alternate;
         }
 
         #content {
@@ -46,43 +50,70 @@
             align-items: center;
             justify-content: center;
             opacity: 0;
-            transition: opacity 1s ease-in;
+            transition: opacity 1.5s ease-in;
         }
 
+        /* عنوان احترافي وسينمائي */
         .header-text {
-            font-size: 2.5rem;
-            font-weight: bold;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 0, 0, 0.6);
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-            margin-top: -30px;
+            font-family: 'Cinzel', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ffaaaa, #ff0044, #ffaaaa);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 3s linear infinite;
+            margin-bottom: 20px;
+            margin-top: -40px;
+            text-shadow: 0 0 30px rgba(255, 0, 68, 0.3);
+            letter-spacing: 2px;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
         }
         
-        /* تعديلات العداد ليصبح HDR ومضيء */
+        /* عداد زجاجي احترافي (Glassmorphism) */
         .counter {
-            font-size: 1.6rem;
-            font-weight: bold;
-            color: #ffffff;
-            text-shadow: 
-                0 0 10px #ffffff,
-                0 0 20px #ff4d4d,
-                0 0 30px #ff0000,
-                0 0 40px #cc0000,
-                0 0 50px #990000;
-            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 15px 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(255, 0, 50, 0.15);
+            margin-bottom: 50px;
             direction: ltr;
-            letter-spacing: 2px;
-            background: rgba(20, 0, 0, 0.5);
-            padding: 10px 20px;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 50, 50, 0.3);
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3) inset, 0 0 20px rgba(255, 0, 0, 0.4);
+            display: flex;
+            gap: 15px;
+        }
+
+        .counter span {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 75px;
+        }
+
+        .counter span .num {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #ff3355;
+            text-shadow: 0 0 15px rgba(255, 51, 85, 0.8);
+        }
+
+        .counter span .label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: #cccccc;
+            letter-spacing: 1px;
+            margin-top: 5px;
         }
 
         .heart-container {
             position: relative;
-            width: 350px;
-            height: 350px;
+            width: 380px;
+            height: 380px;
             margin: 0 auto;
             display: flex;
             justify-content: center;
@@ -94,28 +125,40 @@
             height: 100%;
             object-fit: cover;
             pointer-events: none;
+            /* زيادة التباين ليتناسب مع شكل الـ HDR */
+            filter: contrast(1.2) brightness(1.1) drop-shadow(0 0 30px rgba(255,0,0,0.4));
         }
 
+        /* تصميم الكلمة لتكون واضحة جداً ومضيئة */
         .roro-word {
             position: absolute;
-            font-size: 1.8rem;
-            color: #ff4d4d;
-            font-weight: bold;
-            text-shadow: 0 0 10px #fff, 0 0 20px #ff0000;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 2.8rem;
+            color: #ffffff;
+            font-weight: 900;
+            /* توهج أبيض بقلب أحمر لضمان القراءة على أي خلفية */
+            text-shadow: 
+                0 0 5px #fff,
+                0 0 10px #ff0055,
+                0 0 20px #ff0055,
+                0 0 40px #ff0055,
+                0 0 80px #ff0000;
             pointer-events: none;
             opacity: 0;
             z-index: 10;
-            animation: floatUp 1s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+            animation: floatUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
 
         @keyframes floatUp {
-            0% { opacity: 1; transform: translate(0, 0) scale(0.5); }
-            100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1.5); }
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+            20% { opacity: 1; transform: translate(calc(-50% + var(--tx) * 0.2), calc(-50% + var(--ty) * 0.2)) scale(1.2); }
+            80% { opacity: 0.8; }
+            100% { opacity: 0; transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1.5); }
         }
 
         @keyframes pulse {
             0% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1.05); opacity: 1; }
         }
     </style>
 </head>
@@ -127,7 +170,14 @@
 
     <div id="content">
         <div class="header-text">Forever means forever</div>
-        <div class="counter" id="timer">Loading...</div>
+        
+        <!-- عداد مقسم بشكل احترافي -->
+        <div class="counter" id="timer">
+            <span><div class="num" id="d">00</div><div class="label">Days</div></span> : 
+            <span><div class="num" id="h">00</div><div class="label">Hours</div></span> : 
+            <span><div class="num" id="m">00</div><div class="label">Minutes</div></span> : 
+            <span><div class="num" id="s">00</div><div class="label">Seconds</div></span>
+        </div>
         
         <div class="heart-container" id="heart-box">
             <video src="heart.mp4" autoplay loop muted playsinline class="heart-video"></video>
@@ -156,7 +206,7 @@
                     content.style.display = 'flex';
                     setTimeout(() => { content.style.opacity = '1'; }, 50);
                     startHeartbeatWords();
-                }, 500);
+                }, 800);
             }).catch((error) => {
                 alert("برجاء التأكد من وجود ملف song.mp3 في نفس المجلد.");
             });
@@ -171,39 +221,44 @@
         const startDate = new Date("2025-01-08T00:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
-            let diff = now - startDate;
+            let diff = Math.abs(now - startDate);
             
-            const days = Math.floor(Math.abs(diff) / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((Math.abs(diff) % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((Math.abs(diff) % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((Math.abs(diff) % (1000 * 60)) / 1000);
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
             
-            let text = diff < 0 ? 
-                `متبقي: ${days} يوم, ${hours} ساعة, ${minutes} دقيقة, ${seconds} ثانية` : 
-                `${days} Days : ${hours} Hours : ${minutes} Minutes : ${seconds} Seconds`;
-            
-            document.getElementById("timer").innerHTML = text;
+            document.getElementById("d").innerText = days.toString().padStart(2, '0');
+            document.getElementById("h").innerText = hours.toString().padStart(2, '0');
+            document.getElementById("m").innerText = minutes.toString().padStart(2, '0');
+            document.getElementById("s").innerText = seconds.toString().padStart(2, '0');
         }, 1000);
+
+        // الكلمات التي ستخرج مع النبض
+        const words = ['رورتي', 'رورو'];
 
         function startHeartbeatWords() {
             setInterval(() => {
                 const heartBox = document.getElementById('heart-box');
                 const word = document.createElement('div');
                 word.className = 'roro-word';
-                word.innerText = 'رورو';
+                
+                // اختيار الكلمة
+                word.innerText = words[Math.floor(Math.random() * words.length)];
                 
                 const angle = Math.random() * Math.PI * 2;
-                const distance = 120 + Math.random() * 60;
+                const distance = 140 + Math.random() * 60;
                 const tx = Math.cos(angle) * distance + 'px';
                 const ty = Math.sin(angle) * distance + 'px';
                 
                 word.style.setProperty('--tx', tx);
                 word.style.setProperty('--ty', ty);
-                word.style.left = '45%';
-                word.style.top = '45%';
+                
+                word.style.left = '50%';
+                word.style.top = '50%';
                 
                 heartBox.appendChild(word);
-                setTimeout(() => { word.remove(); }, 1000);
+                setTimeout(() => { word.remove(); }, 1200);
             }, 900);
         }
     </script>
