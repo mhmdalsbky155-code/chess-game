@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Forever means forever</title>
-    <!-- استدعاء خطوط احترافية (ضفت خط Lemonada للكلمات عشان شكله جميل ورقيق) -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Lemonada:wght@400;600&family=Montserrat:wght@400;600&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Lemonada:wght@400;600;700&family=Montserrat:wght@400;600&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
@@ -129,26 +128,35 @@
             filter: contrast(1.2) brightness(1.1) drop-shadow(0 0 30px rgba(255,0,0,0.4));
         }
 
-        /* تنسيق الكلمات (الوسط المثالي) */
+        /* تنسيق الكلمات بالتأثير الزجاجي الشفاف والمحمر */
         .roro-word {
             position: absolute;
-            font-family: 'Lemonada', cursive, sans-serif; /* خط رقيق ومميز جداً */
-            font-size: 1.8rem; /* حجم واضح */
-            color: #ffe6e6; /* وردي فاتح يميل للأبيض عشان يقرأ بسهولة */
-            font-weight: 600;
-            /* ظل غامق خفيف يبرز الكلمة + توهج أحمر هادي */
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.8), 0 0 15px rgba(255, 20, 60, 0.9);
+            font-family: 'Lemonada', cursive, sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            
+            /* لون أحمر شفاف جداً من الداخل يعطي إحساس الزجاج */
+            color: rgba(220, 20, 40, 0.3); 
+            
+            /* تحديد الحواف بلون أحمر فاتح ولامع يبرز شكل الكلمة */
+            -webkit-text-stroke: 1px rgba(255, 120, 120, 0.85); 
+            
+            /* دمج الظلال لخلق انعكاس وعمق زجاجي */
+            text-shadow: 
+                2px 4px 6px rgba(0, 0, 0, 0.6), /* ظل سفلي للعمق */
+                -1px -1px 3px rgba(255, 255, 255, 0.6), /* انعكاس ضوء أبيض زجاجي من الأعلى */
+                0 0 15px rgba(255, 0, 0, 0.4); /* توهج أحمر خفيف يدمجها مع القلب */
+                
             pointer-events: none;
             opacity: 0;
             z-index: 10;
-            /* ظهور واضح ثم اختفاء تدريجي */
-            animation: floatMedium 2.2s ease-out forwards;
+            animation: floatGlass 2.4s ease-out forwards;
         }
 
-        @keyframes floatMedium {
+        @keyframes floatGlass {
             0% { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
             20% { opacity: 1; transform: translate(calc(-50% + var(--tx) * 0.4), calc(-50% + var(--ty) * 0.4)) scale(1.1); }
-            70% { opacity: 0.9; } /* تفضل واضحة أغلب الوقت */
+            70% { opacity: 0.85; }
             100% { opacity: 0; transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0.9); }
         }
 
@@ -183,7 +191,7 @@
                 height: 360px;
             }
             .roro-word {
-                font-size: 1.5rem; /* حجم ممتاز للموبايل */
+                font-size: 1.5rem;
             }
         }
 
@@ -302,7 +310,6 @@
                 
                 const angle = Math.random() * Math.PI * 2;
                 
-                // مسافة الطيران مظبوطة عشان متطلعش برا إطار الفيديو أبداً
                 const distance = (window.innerWidth < 600 ? 55 : 85) + Math.random() * 30;
                 
                 const tx = Math.cos(angle) * distance + 'px';
@@ -316,8 +323,7 @@
                 
                 heartBox.appendChild(word);
                 
-                // مطابقة مدة بقاء العنصر مع مدة الأنيميشن
-                setTimeout(() => { word.remove(); }, 2200); 
+                setTimeout(() => { word.remove(); }, 2400); 
             }, 900);
         }
     </script>
