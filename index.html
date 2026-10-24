@@ -128,41 +128,30 @@
             filter: contrast(1.2) brightness(1.1) drop-shadow(0 0 30px rgba(255,0,0,0.4));
         }
 
-        /* تنسيق الكلمات بالتأثير الزجاجي الشفاف والمحمر */
+        /* تنسيق الكلمات بلون أحمر وردي وشفافية خفيفة جداً */
         .roro-word {
             position: absolute;
             font-family: 'Lemonada', cursive, sans-serif;
             font-size: 1.8rem;
             font-weight: 700;
             
-            /* لون أحمر شفاف جداً من الداخل يعطي إحساس الزجاج */
-            color: rgba(220, 20, 40, 0.3); 
+            /* لون أحمر مائل للوردي مع شفافية 90% (شفافية بسيطة جداً) */
+            color: rgba(255, 60, 90, 0.9); 
             
-            /* تحديد الحواف بلون أحمر فاتح ولامع يبرز شكل الكلمة */
-            -webkit-text-stroke: 1px rgba(255, 120, 120, 0.85); 
-            
-            /* دمج الظلال لخلق انعكاس وعمق زجاجي */
-            text-shadow: 
-                2px 4px 6px rgba(0, 0, 0, 0.6), /* ظل سفلي للعمق */
-                -1px -1px 3px rgba(255, 255, 255, 0.6), /* انعكاس ضوء أبيض زجاجي من الأعلى */
-                0 0 15px rgba(255, 0, 0, 0.4); /* توهج أحمر خفيف يدمجها مع القلب */
+            /* ظل ناعم بنفس الدرجة لضمان الوضوح بدون مبالغة */
+            text-shadow: 0 0 8px rgba(255, 60, 90, 0.6); 
                 
             pointer-events: none;
             opacity: 0;
             z-index: 10;
-            animation: floatGlass 2.4s ease-out forwards;
+            animation: floatSmooth 2s ease-out forwards;
         }
 
-        @keyframes floatGlass {
+        @keyframes floatSmooth {
             0% { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
             20% { opacity: 1; transform: translate(calc(-50% + var(--tx) * 0.4), calc(-50% + var(--ty) * 0.4)) scale(1.1); }
-            70% { opacity: 0.85; }
+            70% { opacity: 0.9; }
             100% { opacity: 0; transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0.9); }
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(1.05); opacity: 1; }
         }
 
         @media (max-width: 600px) {
@@ -298,19 +287,23 @@
             document.getElementById("s").innerText = seconds.toString().padStart(2, '0');
         }, 1000);
 
-        const words = ['رورتي', 'رورو'];
+        const words = ['رورو', 'رورتي'];
+        let wordIndex = 0; // متغير لتبديل الكلمات بالترتيب
 
         function startHeartbeatWords() {
+            // معدل النبض مضبوط على 850 ملي ثانية ليتزامن مع النبض الطبيعي
             setInterval(() => {
                 const heartBox = document.getElementById('heart-box');
                 const word = document.createElement('div');
                 word.className = 'roro-word';
                 
-                word.innerText = words[Math.floor(Math.random() * words.length)];
+                // اختيار الكلمة بالتبادل المنظم
+                word.innerText = words[wordIndex];
+                wordIndex = (wordIndex === 0) ? 1 : 0;
                 
                 const angle = Math.random() * Math.PI * 2;
                 
-                const distance = (window.innerWidth < 600 ? 55 : 85) + Math.random() * 30;
+                const distance = (window.innerWidth < 600 ? 55 : 85) + Math.random() * 20;
                 
                 const tx = Math.cos(angle) * distance + 'px';
                 const ty = Math.sin(angle) * distance + 'px';
@@ -323,8 +316,8 @@
                 
                 heartBox.appendChild(word);
                 
-                setTimeout(() => { word.remove(); }, 2400); 
-            }, 900);
+                setTimeout(() => { word.remove(); }, 2000); 
+            }, 850);
         }
     </script>
 </body>
